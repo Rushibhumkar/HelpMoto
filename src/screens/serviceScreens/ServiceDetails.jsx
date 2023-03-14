@@ -57,7 +57,7 @@ const ServiceDetails = ({ route,navigation }) => {
           </View>
           <TouchableOpacity
           onPress={()=>navigation.navigate('Payment',
-          {serviceName:item.serviceName,price:item.price})}
+          {serviceName:item.serviceName,price:item.offerPrice})}
            style={styles.button}
            >
             <Text
@@ -178,8 +178,8 @@ export default ServiceDetails;
 
 const styles = StyleSheet.create({
   container: {
-    width: 360,
-    color: "#ffffff",
+    width: '100%',
+    backgroundColor: "#ffffff",
   },
   HEADER: {
     fontSize: 18,

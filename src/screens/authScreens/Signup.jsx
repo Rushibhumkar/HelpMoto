@@ -13,7 +13,7 @@ import {
 import React, {useState,useEffect} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import auth from '@react-native-firebase/auth';
-
+// import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 
 const Signup = ({navigation}) => {
   const [mobNo, setMobNo] = useState('');
@@ -23,39 +23,72 @@ const Signup = ({navigation}) => {
  
   
 
-  // useEffect(() => {
-  //  if(authenticated){
-  //   navigation.replace('Home',{
-  //     loggedUser:loggedUser
-  //   })
-  //  }
-  // }, [authenticated])
+  useEffect(() => {
+    // GoogleSignin.configure();
+ 
+  }, [])
+
+//  const signInWithGoogle = async () => {
+//     try {
+//       await GoogleSignin.hasPlayServices();
+//       const userInfo = await GoogleSignin.signIn();
+//       console.log(userInfo)
+//       storeData(userInfo.user)
+//     } catch (error) {
+//       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+//         console.log("user cancelled the login flow")
+//       } else if (error.code === statusCodes.IN_PROGRESS) {
+//         console.log("operation (e.g. sign in) is in progress already")
+//       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+//         console.log("play services not available or outdated")
+//       } else {
+//         console.log(error ,"some other error happened")
+//       }
+//     }
+//   };
   
 
   const SignupWithOtp = async number => {
-    setLoading(true);
-    try {
-      const cnfm = await auth().signInWithPhoneNumber(number);
-      setConfirm(cnfm);
-    } catch (error) {
-      console.log(error);
-    }
-    setLoading(false);
+    // setLoading(true);
+    // try {
+    //   const cnfm = await auth().signInWithPhoneNumber(number);
+    //   setConfirm(cnfm);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    // setLoading(false);
    
   };
 
   async function confirmCode(otp) {
-    setLoading(true)
-    try {
-      await confirm.confirm(otp);
-      Alert.alert('Signup successfully');
-      setConfirm(null)
-    } catch (error) {
-      console.log('Invalid code.' + error);
-    }
-    setLoading(false);
+    // setLoading(true)
+    // try {
+    //   await confirm.confirm(otp);
+    //   Alert.alert('Signup successfully');
+    //   setConfirm(null)
+    // } catch (error) {
+    //   console.log('Invalid code.' + error);
+    // }
+    // setLoading(false);
   }
 
+
+  const storeData = async user => {
+    try {
+     
+      // const Val ={
+      //   ...user,
+      //   isAllSet:false
+      // }
+      // await AsyncStorage.clear()
+      // await AsyncStorage.setItem('@user_info', JSON.stringify(Val));
+      // console.log("sign scr user created");
+      // getData()
+    } catch (e) {
+      // saving error
+      console.log(e);
+    }
+  };
 
   return (
     <KeyboardAvoidingView style={{flex: 1, backgroundColor: '#fff'}}>
@@ -91,7 +124,9 @@ const Signup = ({navigation}) => {
                   backgroundColor: mobNo.length < 10 ? 'grey' : '#5D5FEF',
                 },
               ]}
-              onPress={() => SignupWithOtp('+91' + mobNo)}>
+              onPress={() => {}
+              // SignupWithOtp('+91' + mobNo)
+              }>
               {loading ? (
                 <ActivityIndicator color="#ffffff" size={34} />
               ) : (
@@ -144,7 +179,9 @@ const Signup = ({navigation}) => {
                   justifyContent: 'center',
                   marginLeft: 5,
                 }}
-                onPress={() =>{ SignupWithOtp('+91' + mobNo);setOtp('');}}>
+                onPress={() =>{
+                  //  SignupWithOtp('+91' + mobNo);setOtp('');
+                   }}>
                 <Text style={{color: '#fff', fontSize: 12, fontWeight: '900'}}>
                   Resend Otp
                 </Text>
@@ -166,7 +203,9 @@ const Signup = ({navigation}) => {
                   backgroundColor: otp.length < 6 ? 'grey' : '#5D5FEF',
                 },
               ]}
-              onPress={() => confirmCode(otp)}>
+              onPress={() => {
+                // confirmCode(otp)
+                }}>
                {loading ? (
                 <ActivityIndicator color="#ffffff" size={34}/>
               ) : (
@@ -199,7 +238,12 @@ const Signup = ({navigation}) => {
             OR
           </Text>
           <View style={styles.row}>
-            <TouchableOpacity style={styles.icon}>
+            <TouchableOpacity 
+            onPress={()=>{
+              // signInWithGoogle()
+            }} 
+            style={styles.icon}
+            >
               <Icon name="google" size={28} color="#5D5FEF" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon}>
